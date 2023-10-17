@@ -1,103 +1,64 @@
+
 #include <iostream>
-#include <string>
-
 using namespace std;
-
-struct BankAccount
-{
-    string accountNumber;
-    string accountHolderName;
-    double accountBalance;
-
-
-    BankAccount(string number, string name, double balance)
-    {
-        accountNumber = number;
-        accountHolderName = name;
-        accountBalance = balance;
-    }
-};
-
-void deposit(BankAccount& account, double amount)
-{
-    if (amount > 0)
-    {
-        account.accountBalance += amount;
-        cout << "Deposit successful. New balance: $" << account.accountBalance << endl;
-    }
-    else
-    {
-        cout << "Invalid deposit amount." << endl;
-    }
+int stack[50], n=50, top=-1;
+void push(int val) {
+   if(top>=n-1)
+   cout<<"Stack Overflow"<<endl;
+   else {
+      top++;
+      stack[top]=val;
+   }
 }
-
-void withdraw(BankAccount& account, double amount)
-{
-    if (amount > 0 && amount <= account.accountBalance)
-    {
-        account.accountBalance -= amount;
-        cout << "Withdrawal successful. New balance: $" << account.accountBalance << endl;
-    }
-    else if (amount > account.accountBalance)
-    {
-        cout << " Withdrawal not possible." << endl;
-    }
-    else
-    {
-        cout << "Invalid withdrawal amount." << endl;
-    }
+void pop() {
+   if(top<=-1)
+   cout<<"Stack Underflow"<<endl;
+   else {
+      cout<<"The popped element is "<< stack[top] <<endl;
+      top--;
+   }
 }
-
-void displayAccountInfo(const BankAccount& account)
-{
-    cout << "Account Number: " << account.accountNumber << endl;
-    cout << "Account Holder's Name: " << account.accountHolderName << endl;
-    cout << "Account Balance: $" << account.accountBalance << endl;
+void display() {
+   if(top>=0) {
+      cout<<"Stack elements are:";
+      for(int i=top; i>=0; i--)
+      cout<<stack[i]<<" ";
+      cout<<endl;
+   } else
+   cout<<"Stack is empty";
 }
-
-int main()
-{
-    BankAccount myAccount("22491763", "ASIF AHMED", 800000);
-
-    int choice;
-    double amount;
-
-    cout << "Welcome to the Bank Account Management System!" << endl;
-
-    do
-    {
-        cout << "nMenu:" <<endl;
-        cout << "1. Deposit:" <<endl;
-        cout << "2. Withdraw:" <<endl;
-        cout << "3. Account Information:" <<endl;
-        cout << "4. Exit:" <<endl;
-        cout << "Enter your choice: ";
-        cin >> choice;
-
-        switch (choice)
-        {
-        case 1:
-            cout << "Enter the deposit amount: $";
-            cin >> amount;
-            deposit(myAccount, amount);
+int main() {
+   int ch, val;
+   cout<<"1) Push in stack"<<endl;
+   cout<<"2) Pop from stack"<<endl;
+   cout<<"3) Display stack"<<endl;
+   cout<<"4) Exit"<<endl;
+   do {
+      cout<<"Enter choice: "<<endl;
+      cin>>ch;
+      switch(ch) {
+         case 1: {
+            cout<<"Enter value to be pushed:"<<endl;
+            cin>>val;
+            push(val);
             break;
-        case 2:
-            cout << "Enter the Withdrawal amount: $";
-            cin >> amount;
-            withdraw(myAccount, amount);
+         }
+         case 2: {
+            pop();
             break;
-        case 3:
-            displayAccountInfo(myAccount);
+         }
+         case 3: {
+            display();
             break;
-        case 4:
-            cout << "Thanks for using the Bank Account Management System. Goodbye!" << endl;
+         }
+         case 4: {
+            cout<<"Exit"<<endl;
             break;
-        default:
-            cout << "Invalid choice. Please select a valid option." << endl;
-        }
-    }
-    while (choice != 4);
-
-    return 0;
+         }
+         default: {
+            cout<<"Invalid Choice"<<endl;
+         }
+      }
+   }while(ch!=4);
+   return 0;
 }
-
