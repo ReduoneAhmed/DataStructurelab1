@@ -1,64 +1,89 @@
-
 #include <iostream>
 using namespace std;
-int stack[50], n=50, top=-1;
-void push(int val) {
-   if(top>=n-1)
-   cout<<"Stack Overflow"<<endl;
-   else {
-      top++;
-      stack[top]=val;
-   }
+
+void removeLowest(stack<int>& s)
+{
+    if (s.empty())
+    {
+        cout << "Stack is empty." << endl;
+        return;
+    }
+
+    int lowest = s.top();
+    s.pop();
+
+    while (!s.empty())
+    {
+        int current = s.top();
+        s.pop();
+
+        if (current < lowest)
+        {
+            lowest = current;
+        }
+    }
+
+    stack<int> tempStack;
+    while (!s.empty())
+    {
+        int current = s.top();
+        s.pop();
+
+        if (current != lowest)
+        {
+            tempStack.push(current);
+        }
+    }
+
+    while (!tempStack.empty())
+    {
+        s.push(tempStack.top());
+        tempStack.pop();
+    }
 }
-void pop() {
-   if(top<=-1)
-   cout<<"Stack Underflow"<<endl;
-   else {
-      cout<<"The popped element is "<< stack[top] <<endl;
-      top--;
-   }
-}
-void display() {
-   if(top>=0) {
-      cout<<"Stack elements are:";
-      for(int i=top; i>=0; i--)
-      cout<<stack[i]<<" ";
-      cout<<endl;
-   } else
-   cout<<"Stack is empty";
-}
-int main() {
-   int ch, val;
-   cout<<"1) Push in stack"<<endl;
-   cout<<"2) Pop from stack"<<endl;
-   cout<<"3) Display stack"<<endl;
-   cout<<"4) Exit"<<endl;
-   do {
-      cout<<"Enter choice: "<<endl;
-      cin>>ch;
-      switch(ch) {
-         case 1: {
-            cout<<"Enter value to be pushed:"<<endl;
-            cin>>val;
-            push(val);
-            break;
-         }
-         case 2: {
-            pop();
-            break;
-         }
-         case 3: {
-            display();
-            break;
-         }
-         case 4: {
-            cout<<"Exit"<<endl;
-            break;
-         }
-         default: {
-            cout<<"Invalid Choice"<<endl;
-         }
-      }
-   }while(ch!=4);
-   return 0;
+
+int main()
+{
+    stack<int> s;
+
+    s.push(5);
+    s.push(2);
+    s.push(4);
+    s.push(7);
+
+    cout << "Stack elements are: ";
+    while (!s.empty())
+    {
+        cout << s.top() << " ";
+        s.pop();
+    }
+    cout << endl;
+
+    s.push(5);
+    s.push(4);
+    s.push(7);
+    s.push(2);
+    s.push(-1);
+
+    cout << "Stack elements are: ";
+    stack<int> originalStack;
+    while (!s.empty())
+    {
+        originalStack.push(s.top());
+        cout << s.top() << " ";
+        s.pop();
+    }
+    cout << endl;
+
+    removeLowest(originalStack);
+
+    cout << "Stack elements are: ";
+    while (!originalStack.empty())
+    {
+        cout << originalStack.top() << " ";
+        originalStack.pop();
+    }
+    cout << endl;
+
+    return 0;
 }
