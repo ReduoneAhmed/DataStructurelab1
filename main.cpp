@@ -1,89 +1,131 @@
 #include <iostream>
+
 using namespace std;
 
-void removeLowest(stack<int>& s)
+class Node
+
 {
-    if (s.empty())
-    {
-        cout << "Stack is empty." << endl;
-        return;
+public:
+    int data;
+    Node* next;
+
+    Node(int value) : data(value), next(NULL) {}
+};
+
+class LinkedList
+
+{
+private:
+    Node* head;
+
+public:
+    LinkedList() : head(NULL) {}
+
+    void insert(int value)
+
+     {
+        Node* newNode = new Node(value);
+        newNode->next = head;
+        head = newNode;
     }
 
-    int lowest = s.top();
-    s.pop();
 
-    while (!s.empty())
+    void remove(int value)
+
     {
-        int current = s.top();
-        s.pop();
+        Node* current = head;
+        Node* prev = NULL;
 
-        if (current < lowest)
-        {
-            lowest = current;
+        if (current != NULL && current->data == value)
+
+            {
+            head = current->next;
+            delete current;
+            return;
         }
-    }
 
-    stack<int> tempStack;
-    while (!s.empty())
-    {
-        int current = s.top();
-        s.pop();
 
-        if (current != lowest)
-        {
-            tempStack.push(current);
+        while (current != NULL && current->data != value)
+
+            {
+            prev = current;
+            current = current->next;
         }
+
+
+        if (current == NULL)
+
+            {
+            cout << "Value not found in the list" << endl;
+            return;
+        }
+
+
+        prev->next = current->next;
+        delete current;
     }
 
-    while (!tempStack.empty())
+
+    bool find(int value)
+
     {
-        s.push(tempStack.top());
-        tempStack.pop();
+        Node* current = head;
+        while (current != NULL)
+
+            {
+            if (current->data == value)
+
+                {
+                return true;
+            }
+            current = current->next;
+        }
+        return false;
     }
-}
+
+
+    void display()
+
+    {
+        Node* current = head;
+        while (current != NULL)
+
+            {
+            cout << current->data << " -> ";
+            current = current->next;
+        }
+        cout << "NULL" << endl;
+    }
+};
 
 int main()
+
 {
-    stack<int> s;
+    LinkedList myList;
 
-    s.push(5);
-    s.push(2);
-    s.push(4);
-    s.push(7);
 
-    cout << "Stack elements are: ";
-    while (!s.empty())
-    {
-        cout << s.top() << " ";
-        s.pop();
-    }
-    cout << endl;
+    myList.insert(5);
+    myList.insert(10);
+    myList.insert(15);
+    myList.insert(20);
 
-    s.push(5);
-    s.push(4);
-    s.push(7);
-    s.push(2);
-    s.push(-1);
 
-    cout << "Stack elements are: ";
-    stack<int> originalStack;
-    while (!s.empty())
-    {
-        originalStack.push(s.top());
-        cout << s.top() << " ";
-        s.pop();
-    }
-    cout << endl;
+    cout << "Initial linked list" << endl;
+    myList.display();
 
-    removeLowest(originalStack);
 
-    cout << "Stack elements are: ";
-    while (!originalStack.empty())
-    {
-        cout << originalStack.top() << " ";
-        originalStack.pop();
-    }
-    cout << endl;
+    cout << "Searching for value 10 " << boolalpha << myList.find(10) << endl;
+    cout << "Searching for value 25 " << boolalpha << myList.find(25) << endl;
+
+
+    myList.remove(15);
+
+
+    cout << "Linked list after deleting 15" << endl;
+    myList.display();
 
     return 0;
 }
+
+
+
