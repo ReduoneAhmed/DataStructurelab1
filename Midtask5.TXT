@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    const int size = 6;  
+    
+    int Array_1[size] = {4, 1, 8, 5, 2, 11};
+    int Array_2[size] = {3, 6, 9, 10, 7, 4};
+
+    
+    std::vector<int> resultArray;
+
+  
+    for (int i = 0; i < size; ++i) {
+        if (Array_1[i] % 2 == 0) {
+            resultArray.push_back(Array_1[i]);
+        }
+        if (Array_2[i] % 2 == 0) {
+            resultArray.push_back(Array_2[i]);
+        }
+    }
+
+    // Print the new array with even elements
+    std::cout << "Output: ";
+    for (int element : resultArray) {
+        std::cout << element << " ";
+    }
+
+    return 0;
+}
