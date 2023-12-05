@@ -1,0 +1,217 @@
+#include <iostream>
+using namespace std;
+int stack[100], n=100, top=-1;
+void push(int val) {
+   if(top>=n-1)
+   cout<<"Stack Overflow"<<endl;
+   else {
+      top++;
+      stack[top]=val;
+   }
+}
+void pop() {
+   if(top<=-1)
+   cout<<"Stack Underflow"<<endl;
+   else {
+      cout<<"The popped element is "<< stack[top] <<endl;
+      top--;
+   }
+}
+void display() {
+   if(top>=0) {
+      cout<<"Stack elements are:";
+      for(int i=top; i>=0; i--)
+      cout<<stack[i]<<" ";
+      cout<<endl;
+   } else
+   cout<<"Stack is empty";
+}
+int main() {
+   int ch, val;
+   cout<<"1) Push in stack"<<endl;
+   cout<<"2) Pop from stack"<<endl;
+   cout<<"3) Display stack"<<endl;
+   cout<<"4) Exit"<<endl;
+   do {
+      cout<<"Enter choice: "<<endl;
+      cin>>ch;
+      switch(ch) {
+         case 1: {
+            cout<<"Enter value to be pushed:"<<endl;
+            cin>>val;
+            push(val);
+            break;
+         }
+         case 2: {
+            pop();
+            break;
+         }
+         case 3: {
+            display();
+            break;
+         }
+         case 4: {
+            cout<<"Exit"<<endl;
+            break;
+         }
+         default: {
+            cout<<"Invalid Choice"<<endl;
+         }
+
+
+
+
+
+#include <iostream>
+
+using namespace std;
+
+
+struct BankAccount {
+
+    string accountNumber;
+
+    string accountHolderName;
+
+    double accountBalance;
+
+   
+
+    BankAccount(string number, string name, double balance) {
+
+        accountNumber = number;
+
+        accountHolderName = name;
+
+        accountBalance = balance;
+
+    }
+
+};
+
+// Function to deposit money into the account
+
+void deposit(BankAccount& account, double amount) {
+
+    if (amount > 0) {
+
+        account.accountBalance += amount;
+
+        cout << "Deposit successful. New balance: $" << account.accountBalance << endl;
+
+    } else {
+
+        cout << "Invalid deposit amount. Please enter a positive value." << endl;
+
+    }
+
+}
+
+
+
+void withdraw(BankAccount& account, double amount) {
+
+    if (amount > 0 && amount <= account.accountBalance) {
+
+        account.accountBalance -= amount;
+
+        cout << "Withdrawal successful. New balance: $" << account.accountBalance << endl;
+
+    } else if (amount > account.accountBalance) {
+
+        cout << "Insufficient funds. Withdrawal not possible." << endl;
+
+    } else {
+
+        cout << "Invalid withdrawal amount. Please enter a positive value." << endl;
+
+    }
+
+}
+
+
+
+void displayAccountInfo(const BankAccount& account) {
+
+    cout << "Account Number: " << account.accountNumber << endl;
+
+    cout << "Account Holder's Name: " << account.accountHolderName << endl;
+
+    cout << "Account Balance: $" << account.accountBalance << endl;
+
+}
+
+int main() {
+
+  
+
+    BankAccount myAccount("123456789", "John Doe", 1000.0);
+
+    int choice;
+
+    double amount;
+
+    cout << "Welcome to the Bank Account Management System!" << endl;
+
+    do {
+
+        cout << "\nMenu:\n";
+
+        cout << "1. Deposit\n";
+
+        cout << "2. Withdraw\n";
+
+        cout << "3. Display Account Information\n";
+
+        cout << "4. Exit\n";
+
+        cout << "Enter your choice: ";
+
+        cin >> choice;
+
+        switch (choice) {
+
+            case 1:
+
+                cout << "Enter the deposit amount: $";
+
+                cin >> amount;
+
+                deposit(myAccount, amount);
+
+                break;
+
+            case 2:
+
+                cout << "Enter the withdrawal amount: $";
+
+                cin >> amount;
+
+                withdraw(myAccount, amount);
+
+                break;
+
+            case 3:
+
+                displayAccountInfo(myAccount);
+
+                break;
+
+            case 4:
+
+                cout << "Thank you for using the Bank Account Management System. Goodbye!" << endl;
+
+                break;
+
+            default:
+
+                cout << "Invalid choice. Please select a valid option." << endl;
+
+        }
+
+    } while (choice != 4);
+
+    return 0;
+
+
+
