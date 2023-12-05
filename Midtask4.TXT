@@ -1,0 +1,59 @@
+#include <iostream>
+using nanmespace std;
+
+const int rows1 = 5;
+const int cols1 = 5;
+const int rows2 = 5;
+const int cols2 = 6;
+
+void multiplyAndTranspose(int matrix1[rows1][cols1], int matrix2[rows2][cols2]) {
+    // Initialize the result matrix
+    int result[rows1][cols2] = {0};
+
+    // Multiply matrices
+    for (int i = 0; i < rows1; ++i) {
+        for (int j = 0; j < cols2; ++j) {
+            for (int k = 0; k < cols1; ++k) {
+                result[i][j] += matrix1[i][k] * matrix2[k][j];
+            }
+        }
+    }
+
+    // Print the multiplication result
+    std::cout << "Multiplication result:\n";
+    for (int i = 0; i < rows1; ++i) {
+        for (int j = 0; j < cols2; ++j) {
+            std::cout << result[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    // Find and print the transpose of the result matrix
+    std::cout << "\nTranspose matrix:\n";
+    for (int j = 0; j < cols2; ++j) {
+        for (int i = 0; i < rows1; ++i) {
+            std::cout << result[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+int main() {
+    // Initialize two matrices
+    int matrix1[rows1][cols1] = {{1, 2, 3, 4, 5},
+                                 {0, 0, 0, 0, 0},
+                                 {0, 0, 0, 0, 0},
+                                 {0, 0, 0, 0, 0},
+                                 {0, 0, 0, 0, 0}};
+
+    int matrix2[rows2][cols2] = {{1, 0, 0, 0, 0, 0},
+                                 {2, 0, 0, 0, 0, 0},
+                                 {3, 0, 0, 0, 0, 0},
+                                 {4, 0, 0, 0, 0, 0},
+                                 {5, 0, 0, 0, 0, 0}};
+
+    // Call the function to multiply and find the transpose
+    multiplyAndTranspose(matrix1, matrix2);
+
+    return 0;
+}
