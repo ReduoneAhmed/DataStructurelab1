@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+void ClosestToZero(int arr[], int n) {
+    if (n < 2) {
+        std::cout << "Array should have at least two elements." << std::endl;
+        return;
+    }
+
+  
+    std::sort(arr, arr + n);
+
+    int left = 0, right = n - 1;
+    int closestSum = INT_MAX;
+    int result1, result2;
+
+    while (left < right) {
+        int currentSum = arr[left] + arr[right];
+
+    
+        if (std::abs(currentSum) < std::abs(closestSum)) {
+            closestSum = currentSum;
+            result1 = arr[left];
+            result2 = arr[right];
+        }
+
+        if (currentSum < 0) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+
+    std::cout << "Elements with sum closest to zero: " << result1 << " and " << result2 << std::endl;
+}
+
+int main() {
+    const int size = 10;
+    int arr[size];
+
+    std::cout << "Enter 10 elements for the array:" << std::endl;
+    for (int i = 0; i < size; ++i) {
+        std::cin >> arr[i];
+    }
+
+    ClosestToZero(arr, size);
+
+    return 0;
+}
